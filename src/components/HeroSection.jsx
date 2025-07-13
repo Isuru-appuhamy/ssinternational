@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 function HeroSection() {
+  const [trackingId, setTrackingId] = useState("");
+  const navigate = useNavigate();
+
+  const handleTrackNow = () => {
+    if (trackingId.trim()) {
+      navigate(`/track/${trackingId.trim()}`);
+    }
+  };
+
   return (
     <section id="home" className="relative h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Video */}
@@ -30,9 +40,13 @@ function HeroSection() {
           <input
             type="text"
             placeholder="Enter your tracking number"
+            value={trackingId}
+            onChange={(e) => setTrackingId(e.target.value)}
             className="w-full md:w-2/3 px-4 py-3 border rounded-md shadow-sm text-white focus:outline-none"
           />
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-md shadow hover:bg-blue-700 transition font-medium">
+          <button
+            onClick={handleTrackNow}
+            className="bg-blue-600 text-white px-6 py-3 rounded-md shadow hover:bg-blue-700 transition font-medium">
             Track Now
           </button>
         </div>
