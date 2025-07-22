@@ -1,10 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthModal = ({ onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    // Dummy credentials check
+    if (email === "admin@example.com" && password === "12345") {
+      onClose(); // Close the modal
+      navigate("/dashboard"); // Redirect to Dashboard
+    } else {
+      alert("Invalid credentials. Try admin@example.com / 12345");
+    }
+  };
 
   return (
-    <div className="fixed inset-0 bg-transparent flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl p-8 w-full max-w-md border relative shadow-xl">
         <button
           onClick={onClose}
@@ -18,9 +33,23 @@ const AuthModal = ({ onClose }) => {
         </h2>
 
         {isLogin ? (
-          <form className="space-y-4">
-            <input type="email" placeholder="Email" className="w-full p-2 border rounded" />
-            <input type="password" placeholder="Password" className="w-full p-2 border rounded" />
+          <form onSubmit={handleSignIn} className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-2 border rounded"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 border rounded"
+              required
+            />
 
             <select className="w-full p-2 border rounded">
               <option value="">Select User Type</option>
@@ -33,7 +62,10 @@ const AuthModal = ({ onClose }) => {
               Forgot Password?
             </div>
 
-            <button className="w-full bg-orange-500 text-white py-2 rounded font-semibold">
+            <button
+              type="submit"
+              className="w-full bg-orange-500 text-white py-2 rounded font-semibold"
+            >
               Sign In
             </button>
 

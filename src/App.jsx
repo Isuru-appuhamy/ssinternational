@@ -8,7 +8,8 @@ import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
-import TrackingDetails from "./components/TrackingDetails"; 
+import TrackingDetails from "./components/TrackingDetails";
+import Dashboard from "./components/Dashboard"; // Add dashboard component
 
 function App() {
   return (
@@ -16,7 +17,6 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* Home Page */}
         <Route path="/" element={
           <>
             <HeroSection />
@@ -27,9 +27,8 @@ function App() {
             <Footer />
           </>
         } />
-
-        {/* Tracking Page (dynamically shows tracking details) */}
         <Route path="/track/:trackingId" element={<TrackingDetails />} />
+        <Route path="/dashboard" element={<Dashboard />} /> {/* New dashboard route */}
       </Routes>
     </Router>
   );
